@@ -10,11 +10,14 @@ public class MoneyCalculator {
     
 
     private Map<String, Currency> currencies = new HashMap<String, Currency>();
+    private Currency currencyFrom;
     private Currency currencyTo;
     private Money money;
 
     public MoneyCalculator() {
-    
+        currencies.put("EUR", new Currency("EUR", "Euro", "€"));
+        currencies.put("GBP", new Currency("USD", "Dollar americano", "$"));
+        currencies.put("GBP", new Currency("GBP", "Libra", "£"));
     }
     
     public static void main(String[] args) {
@@ -33,9 +36,9 @@ public class MoneyCalculator {
         Scanner scanner = new Scanner(System.in);
         double amount = Double.parseDouble(scanner.next());
         System.out.println("Introduzca divisa de origen");
-        
+        currencyFrom = currencies.get(scanner.next());
         System.out.println("Introduzca divisa de destino");
-        
+        currencyTo = currencies.get(scanner.next());
     }
 
     private void process() {
@@ -44,6 +47,10 @@ public class MoneyCalculator {
 
     private void output() {
         
+    }
+    
+    private static double getExchangeRate(String from, String to) {
+        URL url = new URL("")
     }
     
 }

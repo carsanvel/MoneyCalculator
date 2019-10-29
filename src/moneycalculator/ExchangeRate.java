@@ -5,10 +5,10 @@ import java.util.Date;
 
 public class ExchangeRate {
 
-    Currency from;
-    Currency to;
-    Date date;
-    double rate;
+    private Currency from;
+    private Currency to;
+    private Date date;
+    private double rate;
     
     
     

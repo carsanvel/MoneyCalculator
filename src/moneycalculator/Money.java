@@ -3,8 +3,8 @@ package moneycalculator;
 
 public class Money {
 
-    double amount;
-    Currency currency;
+    private double amount;
+    private Currency currency;
     
 
     public Money(double amount, Currency currency) {
