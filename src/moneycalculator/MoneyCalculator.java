@@ -14,7 +14,6 @@ import java.util.Scanner;
 public class MoneyCalculator {
 
     
-
     private Map<String, Currency> currencies = new HashMap<String, Currency>();
     private Currency currencyTo;
     private Money money;
@@ -22,7 +21,7 @@ public class MoneyCalculator {
 
     public MoneyCalculator() {
         currencies.put("EUR", new Currency("EUR", "Euro", "€"));
-        currencies.put("GBP", new Currency("USD", "Dollar americano", "$"));
+        currencies.put("USD", new Currency("USD", "Dollar americano", "$"));
         currencies.put("GBP", new Currency("GBP", "Libra", "£"));
     }   
     
@@ -57,13 +56,13 @@ public class MoneyCalculator {
     }
     
     private static double getExchangeRate(String from, String to) throws IOException {
-        URL url = new URL("free.currconv.com/api/v7/convert?q=" + from + "_" + 
-                            to + "&compact=ultra&apiKey=610710caec3603c5f3c4");
+        URL url = new URL("https://api.exchangeratesapi.io/latest?base=" + from );
         URLConnection connection = url.openConnection();
         try(BufferedReader reader = new BufferedReader
                                     (new InputStreamReader(connection.getInputStream()))) {
             String line = reader.readLine();
-            String line1 = line.substring(line.indexOf(to) + 12, line.indexOf("}"));
+            int pos = line.indexOf(to) + 5;
+            String line1 = line.substring(pos, line.indexOf(",", pos));
             return Double.parseDouble(line1);
         }
     }
