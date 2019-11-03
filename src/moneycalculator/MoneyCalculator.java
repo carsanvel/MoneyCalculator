@@ -9,7 +9,9 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 public class MoneyCalculator {
 
@@ -61,9 +63,11 @@ public class MoneyCalculator {
         try(BufferedReader reader = new BufferedReader
                                     (new InputStreamReader(connection.getInputStream()))) {
             String line = reader.readLine();
-            int pos = line.indexOf(to) + 5;
-            String line1 = line.substring(pos, line.indexOf(",", pos));
-            return Double.parseDouble(line1);
+            JsonParser parser = new JsonParser();
+            JsonObject gsonObject = parser.parse(line).getAsJsonObject();
+            JsonPrimitive toPrimitive = gsonObject.getAsJsonObject("rates").getAsJsonPrimitive(to);
+            double exchangeRate = toPrimitive.getAsDouble();
+            return exchangeRate;
         }
     }
     
