@@ -21,10 +21,10 @@ public class MoneyCalculator {
     private Money money;
     private ExchangeRate exchangeRate;
 
-    public MoneyCalculator() {
-        currencies.put("EUR", new Currency("EUR", "Euro", "€"));
-        currencies.put("USD", new Currency("USD", "Dollar americano", "$"));
-        currencies.put("GBP", new Currency("GBP", "Libra", "£"));
+    public MoneyCalculator() throws IOException {
+
+        FileCurrencyLoader.load(currencies, "C:\\Users\\carvsk\\Documents\\universidad\\Cuarto ano\\Primer cuatrimestre\\Ingeniería del software 2\\fichero divisas JSON2.txt");
+        
     }   
     
     public static void main(String[] args) throws IOException{
@@ -67,6 +67,7 @@ public class MoneyCalculator {
             JsonObject gsonObject = parser.parse(line).getAsJsonObject();
             JsonPrimitive toPrimitive = gsonObject.getAsJsonObject("rates").getAsJsonPrimitive(to);
             double exchangeRate = toPrimitive.getAsDouble();
+            reader.close();
             return exchangeRate;
         }
     }
