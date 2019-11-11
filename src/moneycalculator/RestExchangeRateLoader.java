@@ -14,10 +14,8 @@ public class RestExchangeRateLoader {
     
                 
     public static ExchangeRate load(String link, Currency currencyFrom, Currency currencyTo) throws IOException {
-        URL url = new URL(link + currencyFrom.getCode());
-        URLConnection connection = url.openConnection();
-        try(BufferedReader reader = new BufferedReader
-                                    (new InputStreamReader(connection.getInputStream()))) {
+        URLConnection connection = new URL(link + currencyFrom.getCode()).openConnection();
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
             String line = reader.readLine();
             reader.close();
             JsonParser parser = new JsonParser();
