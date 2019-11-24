@@ -15,14 +15,17 @@ import java.util.Set;
 
 public class FileCurrencyLoader {
 
+    private File file;
     
-    public static void load(Map<String, Currency> currencies, String directory) throws IOException{
-        try(BufferedReader reader = new BufferedReader
-                                    (new FileReader(new File(directory)))) {
-            String line = reader.readLine();
-            line = line.replaceAll("\n", "");
+    public FileCurrencyLoader(String path) {
+        file = new File(path);
+    }
+    
+    public void load(Map<String, Currency> currencies) throws IOException{
+        try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line = reader.readLine().replaceAll("\n", "");
             JsonParser parser = new JsonParser();
-            JsonObject obj = parser.parse(line).getAsJsonObject();
+            JsonObject obj = new JsonParser().parse(line).getAsJsonObject();
             Set<Entry<String, JsonElement>>  set = obj.entrySet();
             for (Entry<String, JsonElement> entry : set) {
                 JsonObject currency = entry.getValue().getAsJsonObject();

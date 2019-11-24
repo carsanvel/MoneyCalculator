@@ -12,14 +12,19 @@ import java.time.LocalDate;
 
 public class RestExchangeRateLoader {
     
+    private String link;
+    
+    public RestExchangeRateLoader(String link) {
+        this.link = link;
+    }
                 
-    public static ExchangeRate load(String link, Currency currencyFrom, Currency currencyTo) throws IOException {
-        URLConnection connection = new URL(link + currencyFrom.getCode()).openConnection();
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+    public ExchangeRate load(Currency currencyFrom, Currency currencyTo)  {
+        try {
+            URLConnection connection = new URL(link + currencyFrom.getCode()).openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = reader.readLine();
             reader.close();
-            JsonParser parser = new JsonParser();
-            JsonObject gsonObject = parser.parse(line).getAsJsonObject();
+            JsonObject gsonObject = new JsonParser().parse(line).getAsJsonObject();
             JsonPrimitive toPrimitive = gsonObject.getAsJsonObject("rates").getAsJsonPrimitive(currencyTo.getCode());
             String dateString = gsonObject.getAsJsonPrimitive("date").getAsString();
             LocalDate date = LocalDate.of(Integer.parseInt(dateString.substring(0,4)), Integer.parseInt(dateString.substring(5,7)),
@@ -27,5 +32,8 @@ public class RestExchangeRateLoader {
             ExchangeRate exchangeRate = new ExchangeRate(currencyFrom, currencyTo, date, toPrimitive.getAsDouble());
             return exchangeRate;
         }
-    }
+        catch(IOException e) {
+            return null;
+        }
+    }   
 }
