@@ -13,7 +13,7 @@ public class MoneyCalculator {
         
     public static void main(String[] args) throws IOException{
         RestExchangeRateLoader exchangeRateLoader = new RestExchangeRateLoader("https://api.exchangeratesapi.io/latest?base=");
-        FileCurrencyLoader currencyLoader =  new FileCurrencyLoader("C:\\Users\\carvsk\\Documents\\universidad\\Cuarto ano\\Primer cuatrimestre\\Ingeniería del software 2\\fichero divisas JSON2.txt");
+        FileCurrencyLoader currencyLoader =  new FileCurrencyLoader("fichero divisas JSON2.txt");
         Map<String, Currency> currenciesList = new HashMap<>();
         currencyLoader.load(currenciesList);
         MainFrame mainFrame = new MainFrame(currenciesList);
