@@ -1,5 +1,6 @@
-package moneycalculator;
+package moneycalculator.View;
 
+import moneycalculator.Model.Currency;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -7,11 +8,9 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import moneycalculator.Controller.Command;
 
 public class MainFrame extends JFrame {
 
@@ -38,8 +37,8 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
     
-    public void add(Command command) {
-        commands.put(command.getName(), command);
+    public void add(Command command, String name) {
+        commands.put(name, command);
     }
     
     public MoneyDialog getMoneyDialog() {

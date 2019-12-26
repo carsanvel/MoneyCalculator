@@ -1,4 +1,4 @@
-package moneycalculator;
+package moneycalculator.View;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;

@@ -1,5 +1,7 @@
-package moneycalculator;
+package moneycalculator.View;
 
+import moneycalculator.Model.Currency;
+import moneycalculator.Model.ExchangeRate;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
@@ -10,7 +12,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.time.LocalDate;
 
-public class RestExchangeRateLoader {
+public class RestExchangeRateLoader implements ExchangeRateLoader{
     
     private String link;
     
@@ -18,6 +20,7 @@ public class RestExchangeRateLoader {
         this.link = link;
     }
                 
+    @Override
     public ExchangeRate load(Currency currencyFrom, Currency currencyTo)  {
         try {
             URLConnection connection = new URL(link + currencyFrom.getCode()).openConnection();
@@ -33,6 +36,7 @@ public class RestExchangeRateLoader {
             return exchangeRate;
         }
         catch(IOException e) {
+            System.out.println(e.getMessage());
             return null;
         }
     }   

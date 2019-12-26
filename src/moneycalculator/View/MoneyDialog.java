@@ -1,5 +1,6 @@
-package moneycalculator;
+package moneycalculator.View;
 
+import moneycalculator.Model.Currency;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.util.Map;
@@ -30,9 +31,9 @@ public class MoneyDialog extends JPanel {
         }
         amountField = new JTextField(20);
         setLayout(new BorderLayout());
-        boxPanel.add(new JLabel("Origin currencies  "));
+        boxPanel.add(new JLabel("Origin currency  "));
         boxPanel.add(originCurrencies);
-        boxPanel.add(new JLabel("Destiny currencies  "));
+        boxPanel.add(new JLabel("Destiny currency  "));
         boxPanel.add(destinyCurrencies);
         textPanel.add(new JLabel("Amount:  "));
         textPanel.add(amountField);

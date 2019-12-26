@@ -1,7 +1,16 @@
-package moneycalculator;
+package moneycalculator.Controller;
 
+
+
+import moneycalculator.Controller.Command;
+import moneycalculator.View.MoneyDialog;
+import moneycalculator.View.MoneyDisplay;
+import moneycalculator.Model.Currency;
+import moneycalculator.Model.ExchangeRate;
+import moneycalculator.Model.Money;
 import com.sun.javafx.collections.MappingChange.Map;
 import java.util.HashMap;
+import moneycalculator.View.RestExchangeRateLoader;
 
 public class CalculateCommand implements Command {
 
@@ -30,11 +39,4 @@ public class CalculateCommand implements Command {
             moneyDisplay.getTextField().setText("" + money.getAmount() * exchangeRate.getRate());
         }
     }
-
-    @Override
-    public String getName() {
-        return("Calculate");
-    }
-
-    
 }

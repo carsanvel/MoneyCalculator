@@ -1,4 +1,7 @@
-package moneycalculator;
+package moneycalculator.Controller;
+
+import moneycalculator.Controller.Command;
+import moneycalculator.View.MoneyDisplay;
 
 public class DeleteCommand implements Command{
 
@@ -12,11 +15,4 @@ public class DeleteCommand implements Command{
     public void execute() {
         moneyDisplay.getTextField().setText("");
     }
-
-    @Override
-    public String getName() {
-        return "Delete";
-    }
-
-    
 }
