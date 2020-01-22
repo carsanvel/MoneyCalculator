@@ -1,10 +1,10 @@
-package moneycalculator.Model;
+package Model;
 
 
 public class Money {
 
-    private double amount;
-    private Currency currency;
+    private final double amount;
+    private final Currency currency;
     
 
     public Money(double amount, Currency currency) {

@@ -1,7 +1,7 @@
-package moneycalculator.View;
+package View;
 
 import java.util.Map;
-import moneycalculator.Model.Currency;
+import Model.Currency;
 
 interface CurrencyLoader {
     

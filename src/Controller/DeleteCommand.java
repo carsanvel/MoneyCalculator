@@ -1,11 +1,10 @@
-package moneycalculator.Controller;
+package Controller;
 
-import moneycalculator.Controller.Command;
-import moneycalculator.View.MoneyDisplay;
+import View.MoneyDisplay;
 
 public class DeleteCommand implements Command{
 
-    private MoneyDisplay moneyDisplay;
+    private final MoneyDisplay moneyDisplay;
     
     public DeleteCommand(MoneyDisplay moneyDisplay) {
         this.moneyDisplay = moneyDisplay;
@@ -13,6 +12,6 @@ public class DeleteCommand implements Command{
     
     @Override
     public void execute() {
-        moneyDisplay.getTextField().setText("");
+        moneyDisplay.setText("");
     }
 }

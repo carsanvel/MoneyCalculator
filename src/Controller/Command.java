@@ -1,4 +1,4 @@
-package moneycalculator.Controller;
+package Controller;
 
 public interface Command {
 

@@ -1,13 +1,15 @@
-package moneycalculator.Controller;
+package MoneyCalculator;
 
-import moneycalculator.View.MainFrame;
-import moneycalculator.Model.Currency;
+
+
+import Controller.CalculateCommand;
+import Controller.DeleteCommand;
+import Model.Currency;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
-import moneycalculator.View.FileCurrencyLoader;
-import moneycalculator.View.RestExchangeRateLoader;
+import View.FileCurrencyLoader;
+import View.RestExchangeRateLoader;
 
 public class MoneyCalculator {
         
@@ -17,8 +19,9 @@ public class MoneyCalculator {
         Map<String, Currency> currenciesList = new HashMap<>();
         currencyLoader.load(currenciesList);
         MainFrame mainFrame = new MainFrame(currenciesList);
-        mainFrame.add(new CalculateCommand(mainFrame.getMoneyDialog(), mainFrame.getMoneyDisplay(), (HashMap<String, Currency>) currenciesList, exchangeRateLoader), "Calculate");
-        mainFrame.add(new DeleteCommand(mainFrame.getMoneyDisplay()), "Delete");
+        mainFrame.addCommand(new CalculateCommand(mainFrame.getMoneyDialog(), mainFrame.getMoneyDisplay(), (HashMap<String, Currency>) currenciesList, exchangeRateLoader), "Calculate");
+        mainFrame.addCommand(new DeleteCommand(mainFrame.getMoneyDisplay()), "Delete");
+        mainFrame.execute();
     }
     
 }

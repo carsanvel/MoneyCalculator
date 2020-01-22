@@ -1,14 +1,11 @@
-package moneycalculator.View;
+package View;
 
-import moneycalculator.Model.Currency;
-import com.google.gson.JsonArray;
+import Model.Currency;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
@@ -30,15 +27,20 @@ public class FileCurrencyLoader implements CurrencyLoader{
             JsonObject obj = new JsonParser().parse(line).getAsJsonObject();
             Set<Entry<String, JsonElement>>  set = obj.entrySet();
             for (Entry<String, JsonElement> entry : set) {
-                JsonObject currency = entry.getValue().getAsJsonObject();
-                String name = currency.getAsJsonPrimitive("name").getAsString();
-                String code = currency.getAsJsonPrimitive("code").getAsString();
-                String symbol = currency.getAsJsonPrimitive("symbol").getAsString();
-                currencies.put(code, new Currency(code, name, symbol));
+                Currency currency = getAsCurrency(entry);
+                currencies.put(currency.getCode(), currency);
             }
         }
         catch(IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    private Currency getAsCurrency(Entry<String, JsonElement> entry) {
+        JsonObject currency = entry.getValue().getAsJsonObject();
+        String name = currency.getAsJsonPrimitive("name").getAsString();
+        String code = currency.getAsJsonPrimitive("code").getAsString();
+        String symbol = currency.getAsJsonPrimitive("symbol").getAsString();
+        return new Currency(code, name, symbol);
     }
 }

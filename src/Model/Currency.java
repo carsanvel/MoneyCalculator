@@ -1,4 +1,4 @@
-package moneycalculator.Model;
+package Model;
 
 
 public class Currency {

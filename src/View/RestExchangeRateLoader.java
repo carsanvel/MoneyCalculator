@@ -1,7 +1,7 @@
-package moneycalculator.View;
+package View;
 
-import moneycalculator.Model.Currency;
-import moneycalculator.Model.ExchangeRate;
+import Model.Currency;
+import Model.ExchangeRate;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 public class RestExchangeRateLoader implements ExchangeRateLoader{
     
-    private String link;
+    private final String link;
     
     public RestExchangeRateLoader(String link) {
         this.link = link;
@@ -28,16 +28,19 @@ public class RestExchangeRateLoader implements ExchangeRateLoader{
             String line = reader.readLine();
             reader.close();
             JsonObject gsonObject = new JsonParser().parse(line).getAsJsonObject();
-            JsonPrimitive toPrimitive = gsonObject.getAsJsonObject("rates").getAsJsonPrimitive(currencyTo.getCode());
-            String dateString = gsonObject.getAsJsonPrimitive("date").getAsString();
-            LocalDate date = LocalDate.of(Integer.parseInt(dateString.substring(0,4)), Integer.parseInt(dateString.substring(5,7)),
-                                          Integer.parseInt(dateString.substring(8,10)));
-            ExchangeRate exchangeRate = new ExchangeRate(currencyFrom, currencyTo, date, toPrimitive.getAsDouble());
-            return exchangeRate;
+            return toExchangeRate(gsonObject, currencyFrom, currencyTo);
         }
         catch(IOException e) {
             System.out.println(e.getMessage());
             return null;
         }
-    }   
+    } 
+    
+    private ExchangeRate toExchangeRate(JsonObject gsonObject, Currency currencyFrom, Currency currencyTo) {
+        JsonPrimitive toPrimitive = gsonObject.getAsJsonObject("rates").getAsJsonPrimitive(currencyTo.getCode());
+        String dateString = gsonObject.getAsJsonPrimitive("date").getAsString();
+        LocalDate date = LocalDate.of(Integer.parseInt(dateString.substring(0,4)), Integer.parseInt(dateString.substring(5,7)),
+                                      Integer.parseInt(dateString.substring(8,10)));
+        return new ExchangeRate(currencyFrom, currencyTo, date, toPrimitive.getAsDouble());
+    }
 }
